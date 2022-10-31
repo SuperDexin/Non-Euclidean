@@ -1,7 +1,7 @@
 # Non-Euclidean
 https://superdexin.github.io/Non-Euclidean/  
 把六边形地图放在四边形内<br>
-用方向键控制方向<br>
+用方向键控制移动<br>
 中间的箭头方向是玩家面对的方向<br>
 每个格子上的坐标是对应的六边形中的坐标
 六边形地图见下，括号中是坐标，可以用以对照游戏中的坐标<br>
