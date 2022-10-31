@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link type="text/css" rel="stylesheet" href="CSS.css" />
+    <title>Non Euclidean Map</title>
+    <script type="text/javascript" src="JS.js" ></script>
+</head>
+<body>
+    <<div id="background">
+        <div id="map">
+            
+        </div>
+    </div>
+<script type="text/javascript">
+    let map = document.getElementById("map");
+    let content = "";
+    for (let i = 0; i <5; i++){
+        for (let j = 0; j < 5; j++){
+            content += `<div class="blocks" id="${i}${j}""></div>`;
+        }
+    }
+    map.innerHTML = content;
+
+    init();
+
+</script>
+</body>
+</html>
