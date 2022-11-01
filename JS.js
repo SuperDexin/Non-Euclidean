@@ -251,19 +251,23 @@ function switch_dir4(dir4){
 document.addEventListener('keydown', function(e) {
     let dir;
     switch (e.keyCode) {
-        case 37:
+        case 65: //A
+        case 37: //LEFT
             dir = LEFT4;
             break;
-        case 38:
+        case 38: //UP
+        case 87: //W
             dir = TOP4;
             break;
-        case 39:
+        case 39: //RIGHT
+        case 68: //D
             dir = RIGHT4;
             break;
-        case 40:
+        case 40: //DOWN
+        case 83: //S
             dir = BOTTOM4;
             break;
-        case 32:{
+        case 74:{ //J
             turn(RIGHT);
             return;
         }

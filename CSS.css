@@ -30,7 +30,8 @@ html, body{
 
 
 #map {
-    width: 95%;
+    width: 90%;
+    aspect-ratio: 1;
     background: lightyellow;
     border: 5px solid darkorange;
     display: flex;
@@ -46,4 +47,53 @@ html, body{
     border: 1px solid orange;
     margin: 0;
     padding: 0;
+    font-size: 2em;
+    line-height: 50%;
+}
+
+#controlers{
+    width: 95%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
+    margin-top: 2%;
+    margin-bottom: 5%;
+}
+
+#directions {
+    width: 50%;
+    max-height: 150px;
+    display: flex;
+    flex-wrap: wrap;
+}
+
+#directions > div{
+    width: calc(100% / 3 - 2px);
+    aspect-ratio: 1;
+    
+    margin: 0;
+    padding: 0;
+}
+
+#directions > div > button{
+    width:  95%;
+    height: 95%;
+    font-size: 2em;
+    line-height: 50%;
+}
+
+#turner {
+    display: flex;
+    height: 100%;
+    aspect-ratio: 1;
+    justify-content: space-around;
+    align-items: center;
+}
+
+#turner > button{
+    width:  50%;
+    height: 50%;
+    font-size: 2em;
+    line-height: 50%;
 }

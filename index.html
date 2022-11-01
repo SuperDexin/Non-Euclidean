@@ -8,21 +8,51 @@
     <script type="text/javascript" src="JS.js" ></script>
 </head>
 <body>
-    <<div id="background">
-        <div>
-            <head style="width:100%">
+    <div id="background">
+        <div style="margin-top: 5%;">
+            <head style="width:100%;">
                 箭头 ⇧ 是你<br>
                 方块 ⧈ 是箱子<br>
-                试着把箱子推到A上<br>
-                按方向键向上下左右移动<br>
-                按空格可让自己原地顺时针旋转<br>
+                试着把箱子推到 A 上<br>
+                按 方向键 或 WASD 移动<br>
+                按 J 可让自己在原地顺时针旋转<br>
             </head>
-            <br>
             <button id="show_pos" onclick="show_pos()">打开坐标</button>
             <button onclick="init()">新一局游戏</button>     
         </div>
 
         <div id="map"></div>
+        <div id="controlers">
+            <div id="directions">
+                <div></div>
+                <div>
+                    <button onclick="document.body.dispatchEvent(new KeyboardEvent('keydown', {bubbles: true, cancelable: true, keyCode: 38}))">
+                        ⇧
+                    </button>
+                </div>
+                <div></div>
+                <div>
+                    <button onclick="document.body.dispatchEvent(new KeyboardEvent('keydown', {bubbles: true, cancelable: true, keyCode: 37}))">
+                        ⇦
+                    </button>
+                </div>
+                <div>
+                    <button onclick="document.body.dispatchEvent(new KeyboardEvent('keydown', {bubbles: true, cancelable: true, keyCode: 40}))">
+                        ⇩
+                    </button>
+                </div>
+                <div>
+                    <button onclick="document.body.dispatchEvent(new KeyboardEvent('keydown', {bubbles: true, cancelable: true, keyCode: 39}))">
+                        ⇨
+                    </button>
+                </div>
+            </div>
+            <div id="turner">
+                <button onclick="document.body.dispatchEvent(new KeyboardEvent('keydown', {bubbles: true, cancelable: true, keyCode: 74}))">
+                    ↷
+                </button>
+            </div>
+        </div>
     </div>
 <script type="text/javascript">
     let map = document.getElementById("map");
