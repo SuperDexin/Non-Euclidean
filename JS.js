@@ -170,7 +170,7 @@ function show_map4(){
     let role_char = ["⇧", "⇨", "⇩", "⇦"];
     for (let i = 0; i < MAP_LEN; i ++){
         for (let j = 0; j < MAP_LEN; j++){
-            let content = (pos_show && map4[i][j].value != "X") ? map4[i][j].value : "";
+            let content = (pos_show && map4[i][j].value != "X") ? "<span style='font-size: 0.7rem'>" + map4[i][j].value + "</span>": "";
             if (map4[i][j].value == "X"){
                 document.getElementById(`${i}${j}`).style.background = "gray";
             }
