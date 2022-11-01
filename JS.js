@@ -193,6 +193,12 @@ function show_map4(){
 }
 
 function init(){
+    map_face = TOP;
+    role_face = TOP4;
+    role_pos4 = [2, 2];
+
+    map6 = new Array(MAP_LEN);
+    map4 = new Array(MAP_LEN);
     make_map6();
     generate_box();
     make_map4();
