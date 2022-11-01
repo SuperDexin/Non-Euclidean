@@ -19,18 +19,26 @@ const LEFT4     = 3;
 
 const MAP_LEN = 5;
 
+const BOX = "⧈";
+
 let map_face = TOP;
 let role_face = TOP4;
 let role_pos4 = [2, 2];
 let role_block;
+let box_block;
 
 let map6 = new Array(MAP_LEN);
 let map4 = new Array(MAP_LEN);
+
+let pos_show = false;
 
 class blocks {
     constructor(value){
         this.value = value;
         this.neighbour = [null, null, null, null, null, null]; // TOP RT RB B LB LT
+        this.box = false;
+        this.finish = false;
+        this.corner = false;
     }
 
     link(block, dir6){
@@ -77,7 +85,12 @@ function make_map6(){
             }
         }
     }
-
+    map6[0][0].corner = true;
+    map6[0][2].corner = true;
+    map6[2][0].corner = true;
+    map6[2][4].corner = true;
+    map6[4][2].corner = true;
+    map6[4][4].corner = true;
     role_block = map6[2][2];
 }
 
@@ -154,18 +167,34 @@ function fill_map4(now_pos, dir4){
 }
 
 function show_map4(){
+    let role_char = ["⇧", "⇨", "⇩", "⇦"];
     for (let i = 0; i < MAP_LEN; i ++){
         for (let j = 0; j < MAP_LEN; j++){
-            document.getElementById(`${i}${j}`).innerHTML = map4[i][j].value;
+            let content = (pos_show && map4[i][j].value != "X") ? map4[i][j].value : "";
+            if (map4[i][j].value == "X"){
+                document.getElementById(`${i}${j}`).style.background = "gray";
+            }
+            else {
+                document.getElementById(`${i}${j}`).style.background = "";
+            }
+            if (map4[i][j].box){
+                content += "<br>";
+                content += BOX;
+            }
+            if (map4[i][j].finish){
+                content += "<br>A"
+            }
+            if (i == role_pos4[0] && j == role_pos4[1]){
+                content += "<br>" + role_char[role_face];
+            }
+            document.getElementById(`${i}${j}`).innerHTML = content;
         }
     }
-    let role_char = ["⇧", "⇨", "⇩", "⇦"]
-    document.getElementById(`${role_pos4[0]}${role_pos4[1]}`).innerHTML = 
-        map4[role_pos4[0]][role_pos4[1]].value + "<br>" + role_char[role_face];
 }
 
 function init(){
     make_map6();
+    generate_box();
     make_map4();
 }
 
@@ -180,7 +209,12 @@ function move(){
     if (next == null){
         return;
     }
-    role_block = next;
+    if (next.box){
+        push();
+    }
+    else{
+        role_block = next;
+    }
     make_map4();
 }
 
@@ -229,6 +263,10 @@ document.addEventListener('keydown', function(e) {
         case 40:
             dir = BOTTOM4;
             break;
+        case 32:{
+            turn(RIGHT);
+            return;
+        }
         default: return;
     }
     if (dir == role_face){
@@ -246,5 +284,59 @@ document.addEventListener('keydown', function(e) {
             t = 3;
         }
         turn(t);
+        move();
     }
  })
+
+function generate_box(){
+    let x = Math.floor(Math.random()*6);
+    let temp = [[1,1], [1,2], [2,1], [2,3], [3,2], [3,3]];
+    box_block = map6[temp[x][0]][temp[x][1]];
+    box_block.box = true;
+    let a, b;
+    let m;
+    do{
+        m = false;
+        a = Math.floor(Math.random()*5);
+        b = Math.floor(Math.random()*5);
+        if (map6[a][b] == undefined || (a == 2 && b == 2) || (a == temp[x][0] && b == temp[x][1])){
+            m = true;
+        }
+        else{
+            for (let i = 0; i < 6; i ++){
+                if (map6[a][b].neighbour[i] != null){
+                    if (map6[a][b].neighbour[i].box){
+                        m = true;
+                        break; 
+                    }
+                }
+            }
+        }
+    }while(m);
+    map6[a][b].finish = true;
+}
+
+function push(){
+    let next = box_block.get(FRONT);
+    if (next == null){
+        return;
+    }
+    else{
+        box_block.box = false;
+        next.box = true;
+        role_block = box_block;
+        box_block = next;
+    }
+    if(box_block.finish){
+        alert("恭喜你成功了！");
+    }
+    else if(box_block.corner){
+        alert("箱子进角落了，已无路可走");
+    }
+}
+
+function show_pos(){
+    pos_show = !pos_show;
+    document.getElementById("show_pos").innerHTML = pos_show ? "关闭坐标" : "打开坐标";
+    show_map4();
+}
